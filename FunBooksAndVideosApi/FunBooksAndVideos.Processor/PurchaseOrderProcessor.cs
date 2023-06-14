@@ -1,4 +1,5 @@
-﻿using FunBooksAndVideos.Data.Repositories;
+﻿using FunBooksAndVideos.Data.Entities;
+using FunBooksAndVideos.Data.Repositories.Interfaces;
 using FunBooksAndVideos.Processor.Model;
 using FunBooksAndVideos.Processor.Strategy;
 
@@ -8,25 +9,38 @@ namespace FunBooksAndVideos.Processor
     {
         private readonly IEnumerable<IPurchaseOrderProcessingStrategy> availableStrategies;
         private readonly IProductRepository productRepository;
+        private readonly IPurchaseOrderRepository purchaseOrderRepository;
 
         public PurchaseOrderProcessor(IEnumerable<IPurchaseOrderProcessingStrategy> strategies,
-            IProductRepository productRepository)
+            IProductRepository productRepository,
+            IPurchaseOrderRepository purchaseOrderRepository)
         {
             this.availableStrategies = strategies;
             this.productRepository = productRepository;
+            this.purchaseOrderRepository = purchaseOrderRepository;
         }
         public async Task ProcessRequest(CreatePurchaseOrderRequest request)
         {
-            request.ItemLines.ForEach(async line =>
+            var products = new List<Product>(request.ItemLines.Count);
+            request.ItemLines.ForEach(async item =>
             {
-                var product = await productRepository.GetProductByName(line);
-                var startegy = availableStrategies.FirstOrDefault(s => s.ProductType.Any(x=>x.Equals(product.ProductType.Name)));
-                if (startegy == null)
+                var product = await productRepository.GetProductByName(item);
+                //if same product then we should increase quantity
+                products.Add(product);
+            });
+
+            //save purchase order and order items
+            var purchaseOrderId = await purchaseOrderRepository.Create(request.CustomerId, request.TotalPrice, products);
+
+            products.ForEach(async product =>
+            {
+                var strategy = availableStrategies.FirstOrDefault(s => s.ProductType.Any(x=>x.Equals(product.ProductType.Name)));
+                if (strategy == null)
                 {
-                    throw new NotImplementedException("Requested strategy not found");
+                    throw new NotImplementedException();
                 }
 
-                await startegy!.Process(request, product);
+                await strategy!.Process(request, purchaseOrderId, product);
             });
         }
     }

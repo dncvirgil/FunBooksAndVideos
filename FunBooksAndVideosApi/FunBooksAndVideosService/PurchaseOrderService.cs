@@ -19,7 +19,6 @@ namespace FunBooksAndVideos.Service
             var processorModel = new CreatePurchaseOrderRequest()
             {
                 CustomerId = request.CustomerId,
-                PurchaseOrderId = request.PurchaseOrderId,
                 TotalPrice = request.TotalPrice,
                 ItemLines = request.ItemLines
             };

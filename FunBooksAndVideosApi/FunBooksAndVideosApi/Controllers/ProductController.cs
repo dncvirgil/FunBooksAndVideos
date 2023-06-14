@@ -28,7 +28,7 @@ namespace FunBooksAndVideos.Api.Controllers
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts(string productType)
         {
             ProductTypeEnum productTypeEnum;
-            if (!Enum.TryParse<ProductTypeEnum>(productType, out productTypeEnum))
+            if (!Enum.TryParse(productType, out productTypeEnum))
             {
                 return BadRequest("Product type is invalid");
             }

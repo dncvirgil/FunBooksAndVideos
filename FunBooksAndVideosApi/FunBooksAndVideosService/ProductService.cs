@@ -1,4 +1,4 @@
-﻿using FunBooksAndVideos.Data.Repositories;
+﻿using FunBooksAndVideos.Data.Repositories.Interfaces;
 using FunBooksAndVideos.Domain;
 using FunBooksAndVideos.Service.Interfaces;
 

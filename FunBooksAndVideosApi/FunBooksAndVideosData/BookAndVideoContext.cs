@@ -1,6 +1,5 @@
 ﻿using FunBooksAndVideos.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Xml;
 
 namespace FunBooksAndVideos.Data
 {
@@ -13,10 +12,9 @@ namespace FunBooksAndVideos.Data
         public DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public DbSet<Shipping> Shippings { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Address> Address { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<UserMembership> UserMembership { get; set; }
-        public DbSet<UserProduct> UserProduct { get; set; }
+        public DbSet<CustomerMembership> CustomerMembership { get; set; }
+        public DbSet<CustomerProduct> CustomerProduct { get; set; }
 
         public BookAndVideoContext(DbContextOptions<BookAndVideoContext> options)
            : base(options)
@@ -33,11 +31,6 @@ namespace FunBooksAndVideos.Data
 
             modelBuilder.Entity<Shipping>()
                     .HasOne(e => e.PurchaseOrder)
-                    .WithMany()
-                    .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<Shipping>()
-                    .HasOne(e => e.Address)
                     .WithMany()
                     .OnDelete(DeleteBehavior.NoAction);
         }

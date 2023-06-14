@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunBooksAndVideos.Service",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunBooksAndVideos.Domain", "FunBooksAndVideos.Domain\FunBooksAndVideos.Domain.csproj", "{1571527E-45CB-4493-8C3D-9027A15F8FCF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunBooksAndVideos.Test", "FunBooksAndVideos.Test\FunBooksAndVideos.Test.csproj", "{9735DFE0-1E4E-41FF-AA4D-B2DA1789E30D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunBooksAndVideos.IntegrationTests", "FunBooksAndVideos.Test\FunBooksAndVideos.IntegrationTests.csproj", "{9735DFE0-1E4E-41FF-AA4D-B2DA1789E30D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunBooksAndVideos.Processor", "FunBooksAndVideos.Processor\FunBooksAndVideos.Processor.csproj", "{B58FB9D8-916F-4D36-A1F9-CC82FA2754AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunBooksAndVideos.UnitTests", "FunBooksAndVideos.UnitTests\FunBooksAndVideos.UnitTests.csproj", "{49901B18-8545-49F1-AD83-C5957B5E16E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{B58FB9D8-916F-4D36-A1F9-CC82FA2754AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B58FB9D8-916F-4D36-A1F9-CC82FA2754AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B58FB9D8-916F-4D36-A1F9-CC82FA2754AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49901B18-8545-49F1-AD83-C5957B5E16E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49901B18-8545-49F1-AD83-C5957B5E16E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49901B18-8545-49F1-AD83-C5957B5E16E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49901B18-8545-49F1-AD83-C5957B5E16E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

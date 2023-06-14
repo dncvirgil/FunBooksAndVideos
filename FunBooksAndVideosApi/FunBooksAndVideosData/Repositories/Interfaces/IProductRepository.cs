@@ -1,6 +1,6 @@
 ﻿using FunBooksAndVideos.Domain;
 
-namespace FunBooksAndVideos.Data.Repositories
+namespace FunBooksAndVideos.Data.Repositories.Interfaces
 {
     public interface IProductRepository
     {

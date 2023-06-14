@@ -27,7 +27,6 @@ namespace FunBooksAndVideos.Api.Controllers
             var requestDto = new CreatePurchaseOrderRequestDto()
             {
                 CustomerId = request.CustomerId,
-                PurchaseOrderId = request.PurchaseOrderId,
                 TotalPrice = request.TotalPrice,
                 ItemLines = request.ItemLines
             };
