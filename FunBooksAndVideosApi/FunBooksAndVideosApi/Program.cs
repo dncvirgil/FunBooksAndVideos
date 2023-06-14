@@ -35,4 +35,7 @@ app.MapControllers();
 
 app.Run();
 
+/// <summary>
+/// Added to Make FunctionalTest Compile
+/// </summary>
 public partial class Program { }

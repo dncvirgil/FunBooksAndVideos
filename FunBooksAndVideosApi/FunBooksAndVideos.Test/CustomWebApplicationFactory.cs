@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using FunBooksAndVideos.Data;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
 
 namespace FunBooksAndVideos.IntegrationTests
 {
@@ -17,32 +14,31 @@ namespace FunBooksAndVideos.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                //var dbContextDescriptor = services.SingleOrDefault(
-                //    d => d.ServiceType ==
-                //        typeof(DbContextOptions<ApplicationDbContext>));
+                var dbContextDescriptor = services.SingleOrDefault(
+                    d => d.ServiceType == typeof(DbContextOptions<BookAndVideoContext>));
 
-                //services.Remove(dbContextDescriptor);
+                services.Remove(dbContextDescriptor);
 
-                //var dbConnectionDescriptor = services.SingleOrDefault(
-                //    d => d.ServiceType ==
-                //        typeof(DbConnection));
+                var dbConnectionDescriptor = services.SingleOrDefault(
+                    d => d.ServiceType ==
+                        typeof(DbConnection));
 
-                //services.Remove(dbConnectionDescriptor);
+                services.Remove(dbConnectionDescriptor);
 
-                //// Create open SqliteConnection so EF won't automatically close it.
-                //services.AddSingleton<DbConnection>(container =>
-                //{
-                //    var connection = new SqliteConnection("DataSource=:memory:");
-                //    connection.Open();
+                // Create open SqliteConnection so EF won't automatically close it.
+                services.AddSingleton<DbConnection>(container =>
+                {
+                    var connection = new SqliteConnection("DataSource=:memory:");
+                    connection.Open();
 
-                //    return connection;
-                //});
+                    return connection;
+                });
 
-                //services.AddDbContext<ApplicationDbContext>((container, options) =>
-                //{
-                //    var connection = container.GetRequiredService<DbConnection>();
-                //    options.UseSqlite(connection);
-                //});
+                services.AddDbContext<BookAndVideoContext>((container, options) =>
+                {
+                    var connection = container.GetRequiredService<DbConnection>();
+                    options.UseSqlite(connection);
+                });
             });
 
             builder.UseEnvironment("Development");
