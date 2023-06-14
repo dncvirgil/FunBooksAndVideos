@@ -1,4 +1,6 @@
-﻿using FunBooksAndVideos.Service.Interfaces;
+﻿using FunBooksAndVideos.Api.Model;
+using FunBooksAndVideos.Service.Interfaces;
+using FunBooksAndVideos.Service.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FunBooksAndVideos.Api.Controllers
@@ -12,6 +14,27 @@ namespace FunBooksAndVideos.Api.Controllers
         public PurchaseOrderController(IPurchaseOrderService purchaseOrderService)
         {
             this.purchaseOrderService = purchaseOrderService;
+        }
+
+        // POST: api/PurchaseOrder
+        [HttpPost()]
+        public async Task<IActionResult> CreatePurchaseOrder(CreatePurchaseOrderRequest request)
+        {
+            //validate
+
+
+            //map to service model request
+            var requestDto = new CreatePurchaseOrderRequestDto()
+            {
+                CustomerId = request.CustomerId,
+                PurchaseOrderId = request.PurchaseOrderId,
+                TotalPrice = request.TotalPrice,
+                ItemLines = request.ItemLines
+            };
+            await purchaseOrderService.CreatePurchaseOrder(requestDto);
+
+            //return??
+            return Ok();
         }
     }
 }

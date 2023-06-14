@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FunBooksAndVideos.Processor\FunBooksAndVideos.Processor.csproj" />
     <ProjectReference Include="..\FunBooksAndVideosData\FunBooksAndVideos.Data.csproj" />
     <ProjectReference Include="..\FunBooksAndVideosService\FunBooksAndVideos.Service.csproj" />
   </ItemGroup>

@@ -2,7 +2,7 @@
 
 namespace FunBooksAndVideos.Data.Entities
 {
-    [Index(nameof(Name), IsUnique = true, Name = "Index_Product_Name")]
+    [Index(nameof(Name), IsUnique = false, Name = "Index_Product_Name")]
     public class Product
     {
         public int Id { get; set; }

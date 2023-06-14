@@ -1,4 +1,5 @@
 using FunBooksAndVideos.Data;
+using FunBooksAndVideos.Processor;
 using FunBooksAndVideos.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterDataInstances();
 builder.Services.RegisterServiceInstances();
+builder.Services.RegisterProcessorInstances();
 
 var app = builder.Build();
 
