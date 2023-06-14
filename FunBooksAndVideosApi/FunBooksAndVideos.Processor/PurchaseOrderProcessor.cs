@@ -21,7 +21,7 @@ namespace FunBooksAndVideos.Processor
         }
         public async Task ProcessRequest(CreatePurchaseOrderRequest request)
         {
-            var products = new List<Product>(request.ItemLines.Count);
+            var products = new List<Product>();
             request.ItemLines.ForEach(async item =>
             {
                 var product = await productRepository.GetProductByName(item);

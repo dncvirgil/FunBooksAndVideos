@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data.Common;
-using Microsoft.Data.Sqlite;
 
 namespace FunBooksAndVideos.IntegrationTests
 {
@@ -25,23 +24,16 @@ namespace FunBooksAndVideos.IntegrationTests
 
                 services.Remove(dbConnectionDescriptor);
 
-                // Create open SqliteConnection so EF won't automatically close it.
-                services.AddSingleton<DbConnection>(container =>
+                services.AddDbContext<BookAndVideoContext>(options =>
                 {
-                    var connection = new SqliteConnection("DataSource=:memory:");
-                    connection.Open();
-
-                    return connection;
+                    options.UseInMemoryDatabase("InMemoryDB");
                 });
 
-                services.AddDbContext<BookAndVideoContext>((container, options) =>
-                {
-                    var connection = container.GetRequiredService<DbConnection>();
-                    options.UseSqlite(connection);
-                });
             });
 
             builder.UseEnvironment("Development");
         }
+
+        public BookAndVideoContext GetDbContext()=>Services.CreateScope().ServiceProvider.GetService< BookAndVideoContext>();
     }
 }

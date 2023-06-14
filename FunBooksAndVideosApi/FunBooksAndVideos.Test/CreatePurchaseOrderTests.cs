@@ -1,56 +1,76 @@
-﻿using FunBooksAndVideos.Data;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using FunBooksAndVideos.Api.Model;
+using FunBooksAndVideos.Data;
+using FunBooksAndVideos.Data.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
+using System.Net.Http.Json;
 using Xunit;
 
 namespace FunBooksAndVideos.IntegrationTests
 {
-    public class CreatePurchaseOrderTests : IClassFixture<WebApplicationFactory<Program>>
+    public class CreatePurchaseOrderTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
-        private readonly WebApplicationFactory<Program> _factory;
+        private readonly CustomWebApplicationFactory<Program> _factory;
+        private const string PurchaseOrderURL = "/api/PurchaseOrder";
 
-        public CreatePurchaseOrderTests(WebApplicationFactory<Program> factory)
+        public CreatePurchaseOrderTests(CustomWebApplicationFactory<Program> factory)
         {
             _factory = factory;
         }
 
-        [Theory]
-        [InlineData("/api/Product/5")]
-        public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
-        {
-            // Arrange
-            var client = _factory.CreateClient();
-
-            // Act
-            var response = await client.GetAsync(url);
-
-            // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
-        }
-
         [Fact]
-        public async Task Post_NewPhysicalBook_PurchaseOrderIsCreated()
+        public async Task CreatePurchaseOrder_WithPhysicalBook_ShipmentIsCreated()
         {
             // Arrange
             var client = _factory.CreateClient();
 
-            // Arrange
             using (var scope = _factory.Services.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<BookAndVideoContext>();
-
-                Utilities.ReinitializeDbForTests(db);
+                SeedDataForPhysiscalBook(db);
             }
 
+            var request = new CreatePurchaseOrderRequest
+            {
+                CustomerId = 1,
+                TotalPrice = 10,
+                ItemLines = new List<string> { "A Physical Book Title" }
+            };
+            
             // Act
-            var response = await client.GetAsync("");
+            JsonContent content = JsonContent.Create(request);
+            var response = await client.PostAsync(PurchaseOrderURL, content);
 
             // Assert
-            response.EnsureSuccessStatusCode(); // Status Code 200-299
+            response.EnsureSuccessStatusCode();
+            var context = _factory.GetDbContext();
+            var shipment = context.Shippings.FirstOrDefault();
+            Assert.NotNull(shipment);
         }
 
+        private static void SeedDataForPhysiscalBook(BookAndVideoContext db)
+        {
+            var existingProduct = new Product
+            {
+                Name = "A Physical Book Title",
+                Description = "Some description",
+                Price = 10,
+                Url = "google.com",
+                ProductType = new ProductType { Name = "Book" }
+            };
 
+            var existingCustomer = new Customer
+            {
+                Name = "Customer Name",
+                DeliveryAddress = "Test Address",
+                BillingAddress = "Some Address",
+                Email = "test@mail.com",
+                User = new User { Password = "password", UserName = "Username" }
+            };
+
+            db.Products.Add(existingProduct);
+            db.Customers.Add(existingCustomer);
+            db.SaveChanges();
+        }
     }
 }
