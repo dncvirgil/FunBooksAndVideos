@@ -15,6 +15,8 @@ namespace FunBooksAndVideos.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<UserMembership> UserMembership { get; set; }
+        public DbSet<UserProduct> UserProduct { get; set; }
 
         public BookAndVideoContext(DbContextOptions<BookAndVideoContext> options)
            : base(options)
