@@ -17,11 +17,17 @@ namespace FunBooksAndVideos.Api.Controllers
         }
 
         // POST: api/PurchaseOrder
+        /// <summary>
+        /// Creates a new purchase order based on content of cart.
+        /// </summary>
+        /// <param name="CreatePurchaseOrderRequest">Purchase order request with all items.</param>
+        /// <returns> </returns>
         [HttpPost()]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreatePurchaseOrder(CreatePurchaseOrderRequest request)
         {
             //validate
-
 
             //map to service model request
             var requestDto = new CreatePurchaseOrderRequestDto()
@@ -31,8 +37,6 @@ namespace FunBooksAndVideos.Api.Controllers
                 ItemLines = request.ItemLines
             };
             await purchaseOrderService.CreatePurchaseOrder(requestDto);
-
-            //return??
             return Ok();
         }
     }
