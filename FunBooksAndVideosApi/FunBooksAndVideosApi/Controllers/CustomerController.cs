@@ -9,6 +9,7 @@ namespace FunBooksAndVideos.Api.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
+        // POST: api/Customer
         [HttpPost]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Customer))]

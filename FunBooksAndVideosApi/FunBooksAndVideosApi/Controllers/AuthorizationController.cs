@@ -14,11 +14,5 @@ namespace FunBooksAndVideos.Api.Controllers
         {
             return Ok();
         }
-
-        [HttpGet("{username}")]
-        public async Task<IActionResult> Logout(string username)
-        {
-            return Ok();
-        }
     }
 }
