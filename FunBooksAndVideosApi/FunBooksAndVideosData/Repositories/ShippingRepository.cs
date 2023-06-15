@@ -6,11 +6,11 @@ namespace FunBooksAndVideos.Data.Repositories
 {
     public class ShippingRepository : IShippingRepository
     {
-        private readonly BookAndVideoContext _context;
+        private readonly BookAndVideoContext context;
 
         public ShippingRepository(BookAndVideoContext _context)
         {
-            this._context = _context;
+            this.context = _context;
         }
 
         public async Task Add(int purchaseOrderId, string address)
@@ -22,8 +22,8 @@ namespace FunBooksAndVideos.Data.Repositories
                 CreatedDate = DateTime.UtcNow
             };
 
-            _context.Shippings.Add(shipping);
-            _context.SaveChanges();
+            context.Shippings.Add(shipping);
+            context.SaveChanges();
         }
     }
 }

@@ -5,11 +5,11 @@ namespace FunBooksAndVideos.Data.Repositories
 {
     public class PurchaseOrderRepository : IPurchaseOrderRepository
     {
-        private readonly BookAndVideoContext _context;
+        private readonly BookAndVideoContext context;
 
         public PurchaseOrderRepository(BookAndVideoContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<int> Create(int customerId, decimal totalPrice, List<Product> products)
@@ -27,8 +27,8 @@ namespace FunBooksAndVideos.Data.Repositories
                 TotalPrice = totalPrice,
                 OrderItems = orderItems
             };
-            await _context.PurchaseOrders.AddAsync(purchaseOrder);
-            await _context.SaveChangesAsync();
+            await context.PurchaseOrders.AddAsync(purchaseOrder);
+            await context.SaveChangesAsync();
             return purchaseOrder.Id;
         }
     }

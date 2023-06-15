@@ -8,15 +8,15 @@ namespace FunBooksAndVideos.Processor.Strategy
     {
         public List<string> ProductType { get => new() { "eBook", "Video" }; }
 
-        private readonly ICustomerProductRepository _customerProductRepository;
+        private readonly ICustomerProductRepository customerProductRepository;
         public OnlineOrderProcessingStrategy(ICustomerProductRepository customerProductRepository)
         {
-             this._customerProductRepository = customerProductRepository;
+             this.customerProductRepository = customerProductRepository;
         }
 
         public async Task Process(CreatePurchaseOrderRequest request, int purchaseOrderId, Product product)
         {
-            await _customerProductRepository.Add(request.CustomerId, product.Id);
+            await customerProductRepository.Add(request.CustomerId, product.Id);
         }
     }
 }

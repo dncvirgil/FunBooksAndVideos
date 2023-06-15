@@ -5,10 +5,10 @@ namespace FunBooksAndVideos.Data.Repositories
 {
     public class CustomerMembershipRepository : ICustomerMembershipRepository
     {
-        private readonly BookAndVideoContext _context;
-        public CustomerMembershipRepository(BookAndVideoContext _context)
+        private readonly BookAndVideoContext context;
+        public CustomerMembershipRepository(BookAndVideoContext context)
         {
-            this._context = _context;
+            this.context = context;
         }
 
         public async Task Add(int customerId, int membershipTypeId)
@@ -19,8 +19,8 @@ namespace FunBooksAndVideos.Data.Repositories
                 MembershipTypeId = membershipTypeId
             };
 
-            _context.CustomerMembership.Add(customerMembership);
-            _context.SaveChanges();
+            context.CustomerMembership.Add(customerMembership);
+            context.SaveChanges();
         }
     }
 }

@@ -9,26 +9,22 @@ namespace FunBooksAndVideos.IntegrationTests
 {
     public class CreatePurchaseOrderTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
-        private readonly CustomWebApplicationFactory<Program> _factory;
+        private readonly CustomWebApplicationFactory<Program> factory;
         private const string PurchaseOrderURL = "/api/PurchaseOrder";
 
         public CreatePurchaseOrderTests(CustomWebApplicationFactory<Program> factory)
         {
-            _factory = factory;
+            this.factory = factory;
         }
 
         [Fact]
         public async Task CreatePurchaseOrder_WithPhysicalBook_ShipmentIsCreated()
         {
             // Arrange
-            var client = _factory.CreateClient();
+            var client = factory.CreateClient();
 
-            using (var scope = _factory.Services.CreateScope())
-            {
-                var scopedServices = scope.ServiceProvider;
-                var db = scopedServices.GetRequiredService<BookAndVideoContext>();
-                SeedDataForPhysiscalBook(db);
-            }
+            var context = factory.GetDbContext();
+            SeedDataForPhysiscalBook(context);
 
             var request = new CreatePurchaseOrderRequest
             {
@@ -43,7 +39,7 @@ namespace FunBooksAndVideos.IntegrationTests
 
             // Assert
             response.EnsureSuccessStatusCode();
-            var context = _factory.GetDbContext();
+
             var shipment = context.Shippings.FirstOrDefault();
             Assert.NotNull(shipment);
         }

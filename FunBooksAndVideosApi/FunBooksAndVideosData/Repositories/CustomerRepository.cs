@@ -5,15 +5,15 @@ namespace FunBooksAndVideos.Data.Repositories
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private readonly BookAndVideoContext _context;
+        private readonly BookAndVideoContext context;
         public CustomerRepository(BookAndVideoContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public async Task<Customer> Get(int id)
         {
-            var customer = _context.Customers.FirstOrDefault(x=> x.Id == id);
+            var customer = context.Customers.FirstOrDefault(x=> x.Id == id);
             return customer;
         }
     }
