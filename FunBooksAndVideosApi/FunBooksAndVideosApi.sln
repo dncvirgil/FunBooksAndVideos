@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunBooksAndVideos.Domain", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunBooksAndVideos.IntegrationTests", "FunBooksAndVideos.Test\FunBooksAndVideos.IntegrationTests.csproj", "{9735DFE0-1E4E-41FF-AA4D-B2DA1789E30D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunBooksAndVideos.Processor", "FunBooksAndVideos.Processor\FunBooksAndVideos.Processor.csproj", "{B58FB9D8-916F-4D36-A1F9-CC82FA2754AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunBooksAndVideos.Processor", "FunBooksAndVideos.Processor\FunBooksAndVideos.Processor.csproj", "{B58FB9D8-916F-4D36-A1F9-CC82FA2754AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunBooksAndVideos.UnitTests", "FunBooksAndVideos.UnitTests\FunBooksAndVideos.UnitTests.csproj", "{49901B18-8545-49F1-AD83-C5957B5E16E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunBooksAndVideos.Service.UnitTests", "FunBooksAndVideos.UnitTests\FunBooksAndVideos.Service.UnitTests.csproj", "{49901B18-8545-49F1-AD83-C5957B5E16E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

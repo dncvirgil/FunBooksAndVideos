@@ -15,10 +15,6 @@ namespace FunBooksAndVideos.Service
         public async Task<IEnumerable<Product>> GetProducts(ProductTypeEnum productType)
         {
             var products = await productRepository.GetProducts(productType);
-            if(products == null)
-            {
-                return Enumerable.Empty<Product>();
-            }
 
             //map to domain model product
             return products.Select(product =>
