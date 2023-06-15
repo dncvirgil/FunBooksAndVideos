@@ -13,7 +13,7 @@ namespace FunBooksAndVideos.Data.Repositories
             this.context = bookAndVideoContext;
         }
 
-        public async Task<Entities.Product> GetProductByName(string name)
+        public async Task<Entities.Product?> GetProductByName(string name)
         {
             var product = await context.Products.Include(x=>x.ProductType).FirstOrDefaultAsync(x => x.Name == name);
             return product;

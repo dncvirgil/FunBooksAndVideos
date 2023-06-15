@@ -1,5 +1,6 @@
 ﻿using FunBooksAndVideos.Data.Entities;
 using FunBooksAndVideos.Data.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FunBooksAndVideos.Data.Repositories
 {
@@ -11,9 +12,9 @@ namespace FunBooksAndVideos.Data.Repositories
             this.context = context;
         }
 
-        public async Task<Customer> Get(int id)
+        public async Task<Customer?> Get(int id)
         {
-            var customer = context.Customers.FirstOrDefault(x=> x.Id == id);
+            var customer = await context.Customers.FirstOrDefaultAsync(x=> x.Id == id);
             return customer;
         }
     }

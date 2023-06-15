@@ -5,6 +5,6 @@ namespace FunBooksAndVideos.Data.Repositories.Interfaces
     public interface IProductRepository
     {
         Task<IEnumerable<Entities.Product>> GetProducts(ProductTypeEnum productType);
-        Task<Entities.Product> GetProductByName(string name);
+        Task<Entities.Product?> GetProductByName(string name);
     }
 }

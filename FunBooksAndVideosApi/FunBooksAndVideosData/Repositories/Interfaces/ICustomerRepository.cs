@@ -4,6 +4,6 @@ namespace FunBooksAndVideos.Data.Repositories.Interfaces
 {
     public interface ICustomerRepository
     {
-        Task<Customer> Get(int id);
+        Task<Customer?> Get(int id);
     }
 }

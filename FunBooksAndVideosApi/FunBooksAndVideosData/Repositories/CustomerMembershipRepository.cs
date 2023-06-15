@@ -20,7 +20,7 @@ namespace FunBooksAndVideos.Data.Repositories
             };
 
             context.CustomerMembership.Add(customerMembership);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

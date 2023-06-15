@@ -23,7 +23,7 @@ namespace FunBooksAndVideos.Data.Repositories
             };
 
             context.Shippings.Add(shipping);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
