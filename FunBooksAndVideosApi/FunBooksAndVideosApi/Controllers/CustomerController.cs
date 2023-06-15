@@ -24,16 +24,18 @@ namespace FunBooksAndVideos.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Customer))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Produces("application/json")]
         public async Task<IActionResult> GetCustomerById(int id)
         {
             //TODO: Add implementation
             return Ok(new Customer());
         }
 
-        // GET: api/Customer/5/products
-        [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Product>))]
+        // GET: api/Customer/5/memberships
+        [HttpGet("{id}/memberships")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<CustomerMembershipDetails>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Produces("application/json")]
         public async Task<IActionResult> GetMembershipByCustomerId(int id)
         {
             //TODO: Add implementation
@@ -41,10 +43,11 @@ namespace FunBooksAndVideos.Api.Controllers
             return Ok(new List<CustomerMembershipDetails>());
         }
 
-        // GET: api/Customer/5/memberships
-        [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Customer))]
+        // GET: api/Customer/5/products
+        [HttpGet("{id}/products")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Product>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Produces("application/json")]
         public async Task<IActionResult> GetProductsByCustomerId(int id)
         {
             //TODO: Add implementation

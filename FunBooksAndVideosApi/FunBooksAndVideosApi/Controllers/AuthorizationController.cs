@@ -6,7 +6,7 @@ namespace FunBooksAndVideos.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AuthorizationController : ControllerBase
     {
         [HttpPost]
         [AllowAnonymous]
@@ -15,8 +15,8 @@ namespace FunBooksAndVideos.Api.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Logout()
+        [HttpGet("{username}")]
+        public async Task<IActionResult> Logout(string username)
         {
             return Ok();
         }
