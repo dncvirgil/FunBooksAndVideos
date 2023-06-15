@@ -8,7 +8,7 @@ can have memberships for the book club, the video club or for both clubs (premiu
 
 - [.Net 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 
-#Local Run
+# Local Run
 1. You need to set-up appsettings.Development.json with correct values.
 
 2. Create an SQL Server Instance locally (named: FunBooksAndVideosDb) and make sure that your domain user has 'dbowner' permissions on this database. 
