@@ -22,26 +22,26 @@ namespace FunBooksAndVideos.Processor
         public async Task ProcessRequest(CreatePurchaseOrderRequest request)
         {
             var products = new List<Product>();
-            request.ItemLines.ForEach(async item =>
+            foreach (var item in request.ItemLines)
             {
                 var product = await productRepository.GetProductByName(item);
                 //if same product then we should increase quantity
                 products.Add(product);
-            });
+            }
 
             //save purchase order and order items
             var purchaseOrderId = await purchaseOrderRepository.Create(request.CustomerId, request.TotalPrice, products);
 
-            products.ForEach(async product =>
+            foreach (var product in products)
             {
-                var strategy = availableStrategies.FirstOrDefault(s => s.ProductType.Any(x=>x.Equals(product.ProductType.Name)));
+                var strategy = availableStrategies.FirstOrDefault(s => s.ProductType.Any(x => x.Equals(product.ProductType.Name)));
                 if (strategy == null)
                 {
                     throw new NotImplementedException();
                 }
 
                 await strategy!.Process(request, purchaseOrderId, product);
-            });
+            }
         }
     }
 }
