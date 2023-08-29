@@ -1,6 +1,6 @@
 ﻿using FunBooksAndVideos.Api.Model;
 using FunBooksAndVideos.Service.Interfaces;
-using FunBooksAndVideos.Service.Model;
+using FunBooksAndVideos.Service.Mapping;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FunBooksAndVideos.Api.Controllers
@@ -13,10 +13,9 @@ namespace FunBooksAndVideos.Api.Controllers
 
         public PurchaseOrderController(IPurchaseOrderService purchaseOrderService)
         {
-            this.purchaseOrderService = purchaseOrderService;
+            this.purchaseOrderService = purchaseOrderService ?? throw new ArgumentNullException(nameof(purchaseOrderService));
         }
 
-        // POST: api/PurchaseOrder
         /// <summary>
         /// Creates a new purchase order based on content of cart.
         /// </summary>
@@ -27,17 +26,22 @@ namespace FunBooksAndVideos.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreatePurchaseOrder(CreatePurchaseOrderRequest request)
         {
-            //validate
-
-            //map to service model request
-            var requestDto = new CreatePurchaseOrderRequestDto()
+            if (!IsValidPurchaseOrder(request))
             {
-                CustomerId = request.CustomerId,
-                TotalPrice = request.TotalPrice,
-                ItemLines = request.ItemLines
-            };
-            await purchaseOrderService.CreatePurchaseOrder(requestDto);
+                return BadRequest();
+            }
+
+            await purchaseOrderService.CreatePurchaseOrder(request.ToDto());
             return Ok();
+        }
+
+        private static bool IsValidPurchaseOrder(CreatePurchaseOrderRequest request)
+        {
+            return request is not null &&
+                   request.CustomerId > 0 &&
+                   request.TotalPrice > 0 &&
+                   request.ItemLines != null &&
+                   request.ItemLines.Any();
         }
     }
 }

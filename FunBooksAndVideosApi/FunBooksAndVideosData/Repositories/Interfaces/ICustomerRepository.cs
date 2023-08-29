@@ -1,9 +1,7 @@
-﻿using FunBooksAndVideos.Data.Entities;
-
-namespace FunBooksAndVideos.Data.Repositories.Interfaces
+﻿namespace FunBooksAndVideos.Data.Repositories.Interfaces
 {
     public interface ICustomerRepository
     {
-        Task<Customer?> Get(int id);
+        Task<Domain.Customer?> Get(int id);
     }
 }

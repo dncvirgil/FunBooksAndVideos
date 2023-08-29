@@ -1,5 +1,4 @@
-﻿using FunBooksAndVideos.Data.Entities;
-using FunBooksAndVideos.Data.Repositories.Interfaces;
+﻿using FunBooksAndVideos.Data.Repositories.Interfaces;
 using FunBooksAndVideos.Processor.Model;
 
 namespace FunBooksAndVideos.Processor.Strategy
@@ -11,10 +10,10 @@ namespace FunBooksAndVideos.Processor.Strategy
         private readonly ICustomerProductRepository customerProductRepository;
         public OnlineOrderProcessingStrategy(ICustomerProductRepository customerProductRepository)
         {
-             this.customerProductRepository = customerProductRepository;
+             this.customerProductRepository = customerProductRepository ?? throw new ArgumentNullException(nameof(customerProductRepository));
         }
 
-        public async Task Process(CreatePurchaseOrderRequest request, int purchaseOrderId, Product product)
+        public async Task Process(CreatePurchaseOrderRequest request, int purchaseOrderId, Domain.Product product)
         {
             await customerProductRepository.Add(request.CustomerId, product.Id);
         }

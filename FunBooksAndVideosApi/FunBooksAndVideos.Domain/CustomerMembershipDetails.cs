@@ -1,5 +1,4 @@
-﻿
-namespace FunBooksAndVideos.Domain
+﻿namespace FunBooksAndVideos.Domain
 {
     public class CustomerMembershipDetails
     {

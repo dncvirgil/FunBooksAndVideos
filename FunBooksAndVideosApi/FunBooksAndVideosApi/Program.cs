@@ -1,12 +1,11 @@
+using FunBooksAndVideos.Api.Middleware;
 using FunBooksAndVideos.Data;
-using FunBooksAndVideos.Processor;
 using FunBooksAndVideos.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddDbContext<BookAndVideoContext>(options => options.UseSqlServer(configuration.GetConnectionString("FunBooksAndVideosDb")));
 
@@ -16,7 +15,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterDataInstances();
 builder.Services.RegisterServiceInstances();
-builder.Services.RegisterProcessorInstances();
 
 var app = builder.Build();
 
@@ -32,6 +30,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.Run();
 

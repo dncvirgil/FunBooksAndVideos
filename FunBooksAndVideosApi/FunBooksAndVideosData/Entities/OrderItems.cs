@@ -3,7 +3,6 @@
     public class OrderItems
     {
         public int Id { get; set; }
-
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
         public int PurchaseOrderId { get; set; }

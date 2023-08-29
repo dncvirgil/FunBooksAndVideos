@@ -1,5 +1,4 @@
-﻿
-using FunBooksAndVideos.Data.Entities;
+﻿using FunBooksAndVideos.Data.Entities;
 using FunBooksAndVideos.Data.Repositories.Interfaces;
 
 namespace FunBooksAndVideos.Data.Repositories
@@ -10,7 +9,7 @@ namespace FunBooksAndVideos.Data.Repositories
 
         public ShippingRepository(BookAndVideoContext _context)
         {
-            this.context = _context;
+            this.context = _context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task Add(int purchaseOrderId, string address)

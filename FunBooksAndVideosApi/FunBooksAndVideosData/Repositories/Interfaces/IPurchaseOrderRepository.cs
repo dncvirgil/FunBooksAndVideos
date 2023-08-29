@@ -1,4 +1,4 @@
-﻿using FunBooksAndVideos.Data.Entities;
+﻿using FunBooksAndVideos.Domain;
 
 namespace FunBooksAndVideos.Data.Repositories.Interfaces
 {

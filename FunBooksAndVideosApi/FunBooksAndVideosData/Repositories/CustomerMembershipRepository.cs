@@ -8,7 +8,7 @@ namespace FunBooksAndVideos.Data.Repositories
         private readonly BookAndVideoContext context;
         public CustomerMembershipRepository(BookAndVideoContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task Add(int customerId, int membershipTypeId)

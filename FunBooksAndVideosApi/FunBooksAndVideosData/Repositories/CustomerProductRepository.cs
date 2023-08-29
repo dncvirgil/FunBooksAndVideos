@@ -5,10 +5,10 @@ namespace FunBooksAndVideos.Data.Repositories
 {
     public class CustomerProductRepository : ICustomerProductRepository
     {
-        private readonly BookAndVideoContext _context;
-        public CustomerProductRepository(BookAndVideoContext _context)
+        private readonly BookAndVideoContext context;
+        public CustomerProductRepository(BookAndVideoContext context)
         {
-            this._context = _context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task Add(int customerId, int productId)
@@ -19,8 +19,8 @@ namespace FunBooksAndVideos.Data.Repositories
                 ProductId = productId
             };
 
-            _context.CustomerProduct.Add(customerProduct);
-            _context.SaveChanges();
+            context.CustomerProduct.Add(customerProduct);
+            context.SaveChanges();
         }
     }
 }

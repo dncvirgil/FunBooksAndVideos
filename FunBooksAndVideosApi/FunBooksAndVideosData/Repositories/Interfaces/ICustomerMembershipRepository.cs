@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FunBooksAndVideos.Data.Repositories.Interfaces
+﻿namespace FunBooksAndVideos.Data.Repositories.Interfaces
 {
     public interface ICustomerMembershipRepository
     {

@@ -1,7 +1,7 @@
 ﻿using FunBooksAndVideos.Data.Repositories.Interfaces;
-using FunBooksAndVideos.Processor.Model;
+using FunBooksAndVideos.Domain;
 
-namespace FunBooksAndVideos.Processor.Strategy
+namespace FunBooksAndVideos.Service.Processor.Strategy
 {
     public class MembershipOrderProcessingStrategy : IPurchaseOrderProcessingStrategy
     {
@@ -11,16 +11,16 @@ namespace FunBooksAndVideos.Processor.Strategy
         private readonly IMembershipTypeRepository membershipTypeRepository;
 
         public MembershipOrderProcessingStrategy(ICustomerMembershipRepository customerMembershipRepository,
-            IMembershipTypeRepository membershipTypeRepository)
+                                                 IMembershipTypeRepository membershipTypeRepository)
         {
             this.customerMembershipRepository = customerMembershipRepository ?? throw new ArgumentNullException(nameof(customerMembershipRepository));
             this.membershipTypeRepository = membershipTypeRepository ?? throw new ArgumentNullException(nameof(membershipTypeRepository));
         }
 
-        public async Task Process(CreatePurchaseOrderRequest request, int purchaseOrderId, Domain.Product product)
+        public async Task Process(PurchaseOrder purchaseOrder, Product product)
         {
             var membership = await membershipTypeRepository.GetByName(product.Name);
-            await customerMembershipRepository.Add(request.CustomerId, membership.Id);
+            await customerMembershipRepository.Add(purchaseOrder.Customer.Id, membership.Id);
         }
     }
 }

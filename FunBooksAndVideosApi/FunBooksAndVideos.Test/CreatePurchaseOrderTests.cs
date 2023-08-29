@@ -1,7 +1,7 @@
-﻿using FunBooksAndVideos.Api.Model;
+﻿using FluentAssertions;
+using FunBooksAndVideos.Api.Model;
 using FunBooksAndVideos.Data;
 using FunBooksAndVideos.Data.Entities;
-using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Json;
 using Xunit;
 
@@ -41,7 +41,7 @@ namespace FunBooksAndVideos.IntegrationTests
             response.EnsureSuccessStatusCode();
 
             var shipment = context.Shippings.FirstOrDefault();
-            Assert.NotNull(shipment);
+            shipment.Should().NotBeNull();
         }
 
         private static void SeedDataForPhysiscalBook(BookAndVideoContext db)

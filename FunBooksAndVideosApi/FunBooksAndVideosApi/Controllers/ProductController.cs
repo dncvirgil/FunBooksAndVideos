@@ -12,10 +12,9 @@ namespace FunBooksAndVideos.Api.Controllers
         private readonly IProductService productService;
         public ProductController(IProductService productService)
         {
-            this.productService = productService;
+            this.productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
-        // GET: api/Product?productType=Book
         /// <summary>
         /// Retrieves a list of products based on the specified product type.
         /// </summary>
@@ -43,18 +42,15 @@ namespace FunBooksAndVideos.Api.Controllers
             return Ok(products);
         }
 
-        // GET: api/Product/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [Produces("application/json")]
         public async Task<IActionResult> GetProductById(int id)
         {
-            //TODO: Add implementation
             return Ok(new Product());
         }
 
-        // POST: api/Product
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Product))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -62,21 +58,17 @@ namespace FunBooksAndVideos.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> AddProduct(AddProductRequest request)
         {
-            //TODO: Add implementation
             return Created("uri to get product", new Product());
         }
 
-        // DELETE: api/Product/5
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            //TODO: Add implementation
             return Ok();
         }
 
-        // PUT: api/Product/5
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -90,7 +82,6 @@ namespace FunBooksAndVideos.Api.Controllers
                 return BadRequest();
             }
 
-            //TODO: Add implementation
             return Ok();
         }
     }

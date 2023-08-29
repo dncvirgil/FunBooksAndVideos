@@ -9,22 +9,13 @@ namespace FunBooksAndVideos.Service
         private readonly IProductRepository productRepository;
         public ProductService(IProductRepository productRepository)
         {
-            this.productRepository = productRepository;
+            this.productRepository = productRepository ?? throw new ArgumentNullException(nameof(productRepository));
         }
 
         public async Task<IEnumerable<Product>> GetProducts(ProductTypeEnum productType)
         {
             var products = await productRepository.GetProducts(productType);
-
-            //map to domain model product
-            return products.Select(product =>
-                new Domain.Product
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Description = product.Description,
-                    Price = product.Price
-                });
+            return products;
         }
     }
 }

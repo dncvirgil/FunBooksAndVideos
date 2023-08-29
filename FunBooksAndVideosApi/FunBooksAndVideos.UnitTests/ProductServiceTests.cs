@@ -1,4 +1,5 @@
-﻿using FunBooksAndVideos.Data.Repositories.Interfaces;
+﻿using FluentAssertions;
+using FunBooksAndVideos.Data.Repositories.Interfaces;
 using FunBooksAndVideos.Domain;
 using FunBooksAndVideos.Service.Interfaces;
 using Moq;
@@ -21,7 +22,7 @@ namespace FunBooksAndVideos.Service.UnitTests
         public async Task GetProducts_NoProductsFound_ReturnEmptyList()
         {
             //Arrange
-            var mokedProducts = Enumerable.Empty<Data.Entities.Product>();
+            var mokedProducts = Enumerable.Empty<Product>();
             productRepositoryMock.Setup(x => x.GetProducts(It.IsAny<ProductTypeEnum>()))
                                  .ReturnsAsync(mokedProducts);
             productService = new ProductService(productRepositoryMock.Object);
@@ -30,8 +31,8 @@ namespace FunBooksAndVideos.Service.UnitTests
             var products = await productService.GetProducts(ProductTypeEnum.Movie);
 
             //Assert
-            Assert.NotNull(products);
-            Assert.Empty(products);
+            products.Should().NotBeNull();
+            products.Should().BeEmpty();
         }
     }
 }

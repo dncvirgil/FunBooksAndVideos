@@ -9,16 +9,16 @@ namespace FunBooksAndVideos.Data.Repositories
 
         public PurchaseOrderRepository(BookAndVideoContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<int> Create(int customerId, decimal totalPrice, List<Product> products)
+        public async Task<int> Create(int customerId, decimal totalPrice, List<Domain.Product> products)
         {
             var orderItems = products.Select(product => new OrderItems
             {
-                Product = product,
-                Quantity = 0,  //not implemented yet
-                TotalPrice = 0 //not implemented yet
+                ProductId = product.Id,
+                Quantity = 1,
+                TotalPrice = product.Price
             }).ToList();
 
             var purchaseOrder = new PurchaseOrder
@@ -27,6 +27,7 @@ namespace FunBooksAndVideos.Data.Repositories
                 TotalPrice = totalPrice,
                 OrderItems = orderItems
             };
+
             await context.PurchaseOrders.AddAsync(purchaseOrder);
             await context.SaveChangesAsync();
             return purchaseOrder.Id;
